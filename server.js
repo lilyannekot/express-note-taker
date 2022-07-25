@@ -2,7 +2,7 @@
 const express = require("express");
 const fs = require("fs");
 const path = require("path");
-const api = require("/public/assets/js/index.js");
+const api = require("./public/assets/js/index.js");
 
 // Initialize express app
 const app = express();
