@@ -4,13 +4,13 @@ const path = require("path");
 
 // GET route for retrieving new note
 notes.get("/api/notes", (req, res) =>
-  sendFile("../db/db.json").then((data) => res.json(JSON.parse(data)))
+  sendFile("db/db.json").then((data) => res.json(JSON.parse(data)))
 );
 
 app.post("/api/notes", (req, res) => {
   console.log(req.body);
 
-  let db = fs.readFileSync("../db/db.json");
+  let db = fs.readFileSync("db/db.json");
   db = JSON.parse(db);
   res.json(db);
 
@@ -20,7 +20,7 @@ app.post("/api/notes", (req, res) => {
   };
 
   db.push(newNote);
-  fs.writeFileSync("../db/db.json", JSON.stringify(db));
+  fs.writeFileSync("db/db.json", JSON.stringify(db));
   res.json(db);
 });
 
