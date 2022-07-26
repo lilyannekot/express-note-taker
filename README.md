@@ -20,10 +20,26 @@ The following project entailed creating a note taker that can be used to write, 
 
 ## Project Demonstration
 
+![Project Gif](public/assets/images/project-demo.gif)
+
 ## Code Snippet
 
-```
+The code below uses a POST route to send the new note information to the JSON file while also generating a random ID for the note in case it is deleted later.
 
+```
+app.post("/api/notes", (req, res) => {
+  console.log(req.body);
+
+  const newNote = {
+    title: req.body.title,
+    text: req.body.text,
+    id: Math.floor(Math.random() * 1000000),
+  };
+
+  notes.push(newNote);
+  fs.writeFileSync("db/db.json", JSON.stringify(notes));
+  res.json(notes);
+});
 ```
 
 ## Author Links
