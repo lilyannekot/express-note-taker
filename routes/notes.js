@@ -1,48 +1,37 @@
-const notes = require("express").Router();
+const notes = require("./db/db.json");
 const fs = require("fs");
 const path = require("path");
 const { v4: uuidv4 } = require("uuid");
 
 // GET route for retrieving new note
-notes.get("/", (req, res) =>
+app.get("/api/notes", (req, res) =>
   sendFile("db/db.json").then((data) => res.json(JSON.parse(data)))
 );
 
-// app.post("/", (req, res) => {
-//   console.log(req.body);
-
-//   let db = fs.readFileSync("db/db.json");
-//   db = JSON.parse(db);
-//   res.json(db);
-
-//   let newNote = {
-//     noteTitle: req.body.title,
-//     noteText: req.body.text,
-//   };
-
-//   db.push(newNote);
-//   fs.writeFileSync("db/db.json", JSON.stringify(db));
-//   res.json(db);
-// });
-
-notes.post("/", (req, res) => {
+app.post("/api/notes", (req, res) => {
   console.log(req.body);
 
-  const { noteTitle, noteText } = req.body;
+  let newNote = {
+    title: req.body.title,
+    text: req.body.text,
+    id: uuidv4(),
+  };
 
-  if (req.body) {
-    const newNote = {
-      noteTitle,
-      noteText,
-      note_id: uuidv4(),
-    };
+  db.push(newNote);
+  fs.writeFileSync("db/db.json", JSON.stringify(db));
+  res.json(db);
+});
 
-    fs.appendFile(newNote, "db/db.json");
-    res.json("New note has been created!");
-  } else {
-    res.error(
-      "Please check your note! There was an error when trying to save."
-    );
+app.delete("/api/notes:id", (req, res) => {
+  for (var i = 0; i < notes.length; i++) {
+    console.log(typeof notes[i].id);
+    console.log(typeof req.params.is);
+
+    if (notes[i].id == req.params.id) {
+      notes.splice(i, 1);
+      fs.writeFileSync("./db/db.json", JSON.stringify(notes));
+      res.json(notes);
+    }
   }
 });
 
