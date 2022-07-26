@@ -2,7 +2,7 @@
 
 ## Project Summary
 
-The following project entailed creating a note taker that can be used to write, save, and delete notes using an Express.js back end to save and retrieve the note data from a JSON file. The first page you encounter is a landing page which then directs you to the note taking page once you click on the "Get Started" button.
+The following project entailed creating a [note taker](https://pure-shelf-35145.herokuapp.com/) that can be used to write, save, and delete notes using an Express.js back end to save and retrieve the note data from a JSON file. The first page you encounter is a landing page which then directs you to the note taking page once you click on the "Get Started" button.
 
 ## Table of Contents
 
